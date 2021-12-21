@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gun 1", "Gun 1", "{7F2BBE01-F0B8-4C4F-A2F0-738C98FCD738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayoutKullanimi", "LayoutKullanimi\LayoutKullanimi.csproj", "{87F96267-A044-486D-ADBF-B03F8680AE6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87F96267-A044-486D-ADBF-B03F8680AE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F96267-A044-486D-ADBF-B03F8680AE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F96267-A044-486D-ADBF-B03F8680AE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F96267-A044-486D-ADBF-B03F8680AE6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87F96267-A044-486D-ADBF-B03F8680AE6A} = {7F2BBE01-F0B8-4C4F-A2F0-738C98FCD738}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FE0916F-1444-4478-8FDC-8B03712E41B7}
+	EndGlobalSection
+EndGlobal

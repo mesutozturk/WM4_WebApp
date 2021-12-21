@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Wissen Akademi - @ViewBag.Title</title>
+    <link rel="stylesheet" href="css\site.css" />
+    @await  RenderSectionAsync("Styles",required:false)
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
