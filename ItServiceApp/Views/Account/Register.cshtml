@@ -1,0 +1,95 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Kayıt Ol";
+}
+<!--====== Page Title start ======-->
+<section class="page-title-area">
+    <div class="container">
+        <h2 class="title">@ViewBag.Title</h2>
+        <ul class="breadcrumb-nav">
+            <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</section>
+<!--====== Page Title End ======-->
+<!--====== Shoping Checkout Start  ======-->
+<section class="shoping-checkout-area section-gap">
+    <div class="container">
+        <div class="user-actions mb-40">
+            <p>Returning customer? <a href="#">Click here to login</a></p>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <form method="post" asp-controller="Account" asp-action="Register">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="billing-details">
+                        <h3 class="title">Kayıt Formu</h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="UserName"></label>
+                                    <input asp-for="UserName" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="Name"></label>
+                                    <input asp-for="Name" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label asp-for="Surname"></label>
+                                    <input asp-for="Surname" />
+                                    <span asp-validation-for="Surname" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input asp-for="Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="ConfirmPassword"></label>
+                                    <input asp-for="ConfirmPassword" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="payment-box mt-30">
+                                    <input type="submit" class="main-btn" value="Kayıt Ol" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--====== Shoping Checkout End ======-->
+
+@section Styles
+{
+    <style>
+        input {
+            border: solid 1px #e3eeff;
+            height: 50px;
+            padding: 0 15px;
+        }
+    </style>
+}
