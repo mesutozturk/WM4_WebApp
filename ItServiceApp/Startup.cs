@@ -31,6 +31,8 @@ namespace ItServiceApp
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 5;
 
                 options.Lockout.MaxFailedAccessAttempts = 3;
