@@ -108,11 +108,11 @@
                             <a asp-controller="Account" asp-action="Logout">Çıkış Yap <i class="fal fa-long-arrow-right"></i></a>
 
                             @*var currentUser = userManager.FindByNameAsync(User.Identity.Name).Result;
-                            
-                            @if (userManager.IsInRoleAsync(currentUser, RoleNames.Admin).Result)
-                            {
+
+                                @if (userManager.IsInRoleAsync(currentUser, RoleNames.Admin).Result)
+                                {
                                 <a href="#">Admin Panel <i class="fal fa-long-arrow-right"></i></a>
-                            }*@
+                                }*@
 
                             @if (Context.User.IsInRole(RoleNames.Admin))
                             {

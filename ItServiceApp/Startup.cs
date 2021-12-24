@@ -2,6 +2,7 @@ using System;
 using ItServiceApp.Data;
 using ItServiceApp.InjectOrnek;
 using ItServiceApp.Models.Identity;
+using ItServiceApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,7 @@ namespace ItServiceApp
                 options.SlidingExpiration = true;
             });
 
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IMyDependency, NewMyDependency>();
 
             services.AddControllersWithViews();
