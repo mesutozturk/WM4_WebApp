@@ -1,8 +1,8 @@
-﻿@model RegisterViewModel
-
+﻿@model LoginViewModel
 @{
-    ViewBag.Title = "Kayıt Ol";
+    ViewBag.Title = "Giriş";
 }
+
 <!--====== Page Title start ======-->
 <partial name="Partials/_PageStartPartial" />
 <!--====== Page Title End ======-->
@@ -11,44 +11,23 @@
     <div class="container">
         <div class="user-actions mb-40">
             <p>
-                Üyeliğiniz var mı? <a asp-controller="Account" asp-action="Login">
-                    Giriş için tıklayınız
+                Üyeliğiniz var mı? <a asp-controller="Account" asp-action="Register">
+                    Kayıt için tıklayınız
                 </a>
             </p>
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
-        <form method="post" asp-controller="Account" asp-action="Register">
+        <form method="post" asp-controller="Account" asp-action="Login">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="billing-details">
-                        <h3 class="title">Kayıt Formu</h3>
+                        <h3 class="title">Giriş Formu</h3>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label asp-for="UserName"></label>
                                     <input asp-for="UserName" />
                                     <span asp-validation-for="UserName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label asp-for="Email"></label>
-                                    <input asp-for="Email" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label asp-for="Name"></label>
-                                    <input asp-for="Name" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label asp-for="Surname"></label>
-                                    <input asp-for="Surname" />
-                                    <span asp-validation-for="Surname" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -60,14 +39,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label asp-for="ConfirmPassword"></label>
-                                    <input asp-for="ConfirmPassword" />
-                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    <label asp-for="RememberMe"></label>
+                                    <input asp-for="RememberMe" />
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="payment-box mt-30">
-                                    <input type="submit" class="main-btn" value="Kayıt Ol" />
+                                    <input type="submit" class="main-btn" value="Giriş Yap" />
                                 </div>
                             </div>
                         </div>

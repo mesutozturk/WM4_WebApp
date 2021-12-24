@@ -1,9 +1,15 @@
-﻿<header class="header-one sticky-header">
+﻿@using Microsoft.AspNetCore.Identity
+@using ItServiceApp.Models.Identity
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+<header class="header-one sticky-header">
     <div class="header-navigation">
         <div class="container-fluid d-flex align-items-center justify-content-between container-1470">
             <div class="header-left">
                 <div class="site-logo">
-                    <a href="index.html"><img src="~/user-assets/img/logo.png" alt="Wissen"></a>
+                    <a asp-controller="Home" asp-action="Index"><img src="~/user-assets/img/logo.png" alt="Wissen"></a>
                 </div>
             </div>
             <div class="header-right d-flex align-items-center justify-content-end">
@@ -97,7 +103,26 @@
                         <span></span><span></span><span></span>
                     </div>
                     <div class="navbar-btn">
-                        <a href="#">Free Consulting <i class="fal fa-long-arrow-right"></i></a>
+                        @if (signInManager.IsSignedIn(Context.User))
+                        {
+                            <a asp-controller="Account" asp-action="Logout">Çıkış Yap <i class="fal fa-long-arrow-right"></i></a>
+
+                            @*var currentUser = userManager.FindByNameAsync(User.Identity.Name).Result;
+                            
+                            @if (userManager.IsInRoleAsync(currentUser, RoleNames.Admin).Result)
+                            {
+                                <a href="#">Admin Panel <i class="fal fa-long-arrow-right"></i></a>
+                            }*@
+
+                            @if (Context.User.IsInRole(RoleNames.Admin))
+                            {
+                                <a href="#">Admin Panel <i class="fal fa-long-arrow-right"></i></a>
+                            }
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login">Giriş Yap <i class="fal fa-long-arrow-right"></i></a>
+                        }
                     </div>
                 </div>
             </div>
