@@ -87,10 +87,10 @@ namespace ItServiceApp.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                //TODO:kullanıcıya rol atama
+                //kullanıcıya rol atama
                 var count = _userManager.Users.Count();
 
-                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.User);
+                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.Passive);
 
                 //if (count == 1) //admin
                 //{
