@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using ItServiceApp.Extensions;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Services;
@@ -144,6 +145,13 @@ namespace ItServiceApp.Controllers
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             ViewBag.StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+
+            if (result.Succeeded && _userManager.IsInRoleAsync(user, RoleNames.Passive).Result)
+            {
+                await _userManager.RemoveFromRoleAsync(user, RoleNames.Passive);
+                await _userManager.AddToRoleAsync(user, RoleNames.User);
+            }
+
             return View();
         }
 
@@ -186,6 +194,14 @@ namespace ItServiceApp.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            return View();
         }
     }
 }
