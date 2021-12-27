@@ -11,7 +11,6 @@ namespace ItServiceApp.Services
     public class EmailSender:IEmailSender
     {
         private readonly IConfiguration _configuration;
-
         public EmailSender(IConfiguration configuration)
         {
             _configuration = configuration;

@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
@@ -7,6 +9,7 @@ using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace ItServiceApp.Controllers
 {
@@ -98,7 +101,23 @@ namespace ItServiceApp.Controllers
                 //    result = await _userManager.AddToRoleAsync(user, RoleNames.User);
                 //}
 
-                //TODO:kullanıcıya email doğrulama gönderme
+                //kullanıcıya email doğrulama gönderme
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                    protocol: Request.Scheme);
+
+                var emailMessage = new EmailMessage()
+                {
+                    Contacts = new string[] { user.Email },
+                    Body =
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                    Subject = "Confirm your email"
+                };
+
+                await _emailSender.SendAsync(emailMessage);
+
+
                 //TODO:giriş sayfasına yönlendirme
             }
             else
@@ -106,8 +125,25 @@ namespace ItServiceApp.Controllers
                 ModelState.AddModelError(string.Empty, "Kayıt işleminde bir hata oluştu");
                 return View(model);
             }
+            return View();
+        }
 
 
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            ViewBag.StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
             return View();
         }
 
@@ -125,8 +161,7 @@ namespace ItServiceApp.Controllers
                 return View(model);
             }
 
-            var result =
-                await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
 
             if (result.Succeeded)
             {
@@ -153,5 +188,4 @@ namespace ItServiceApp.Controllers
             return RedirectToAction("Index", "Home");
         }
     }
-
 }

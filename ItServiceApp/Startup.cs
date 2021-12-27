@@ -43,6 +43,8 @@ namespace ItServiceApp
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+
             }).AddEntityFrameworkStores<MyContext>();
 
             services.ConfigureApplicationCookie(options =>
@@ -56,7 +58,8 @@ namespace ItServiceApp
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddScoped<IMyDependency, NewMyDependency>();
+            services.AddScoped<IMyDependency, NewMyDependency>(); //loose coupling
+            //services.AddTransient<EmailSender>();
 
             services.AddControllersWithViews();
         }
