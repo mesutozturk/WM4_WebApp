@@ -123,7 +123,7 @@ namespace ItServiceApp.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Kayıt işleminde bir hata oluştu");
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
                 return View(model);
             }
             return View();
@@ -201,7 +201,61 @@ namespace ItServiceApp.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
 
-            return View();
+            var model = new UserProfileViewModel()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                Surname = user.Surname
+            };
+
+            return View(model);
         }
+
+        public async Task<IActionResult> Profile(UserProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            user.Name = model.Name;
+            user.Surname = model.Surname;
+
+            if (user.Email != model.Email)//mail adresini değiştirmiş!!!
+            {
+                await _userManager.RemoveFromRoleAsync(user, RoleNames.User);
+                await _userManager.AddToRoleAsync(user, RoleNames.Passive);
+
+                user.Email = model.Email;
+                user.EmailConfirmed = false;
+
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code },
+                    protocol: Request.Scheme);
+
+                var emailMessage = new EmailMessage()
+                {
+                    Contacts = new string[] { user.Email },
+                    Body =
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
+                    Subject = "Confirm your email"
+                };
+
+                await _emailSender.SendAsync(emailMessage);
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, ModelState.ToFullErrorString());
+            }
+
+            return View(model);
+        }
+
     }
 }
