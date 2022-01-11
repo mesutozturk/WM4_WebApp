@@ -129,7 +129,6 @@ namespace ItServiceApp.Controllers
             return View();
         }
 
-
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
