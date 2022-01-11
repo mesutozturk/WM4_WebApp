@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using AutoMapper;
 using ItServiceApp.Extensions;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Identity;
@@ -20,17 +21,20 @@ namespace ItServiceApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IEmailSender _emailSender;
+        private readonly IMapper _mapper;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<ApplicationRole> roleManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _emailSender = emailSender;
+            _mapper = mapper;
             CheckRoles();
         }
 
@@ -172,12 +176,12 @@ namespace ItServiceApp.Controllers
 
             if (result.Succeeded)
             {
-                await _emailSender.SendAsync(new EmailMessage()
-                {
-                    Contacts = new string[] { "abc@ww.com" },
-                    Body = $"{HttpContext.User.Identity.Name} Sisteme giriş yaptı!",
-                    Subject = $"Merhaba {HttpContext.User.Identity.Name}"
-                });
+                //await _emailSender.SendAsync(new EmailMessage()
+                //{
+                //    Contacts = new string[] { "abc@ww.com" },
+                //    Body = $"{HttpContext.User.Identity.Name} Sisteme giriş yaptı!",
+                //    Subject = $"Merhaba {HttpContext.User.Identity.Name}"
+                //});
 
                 return RedirectToAction("Index", "Home");
             }
@@ -200,18 +204,23 @@ namespace ItServiceApp.Controllers
         {
             var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
 
-            var model = new UserProfileViewModel()
-            {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname
-            };
+            //var model = new UserProfileViewModel()
+            //{
+            //    Email = user.Email,
+            //    Name = user.Name,
+            //    Surname = user.Surname
+            //};
+
+            var model = _mapper.Map<UserProfileViewModel>(user);
+
 
             return View(model);
         }
-
+        [HttpPost]
         public async Task<IActionResult> Profile(UserProfileViewModel model)
         {
+            //var userModel = _mapper.Map<ApplicationUser>(model);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
