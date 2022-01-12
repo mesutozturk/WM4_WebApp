@@ -19,6 +19,5 @@ namespace ItServiceApp.Data
         public DbSet<State> States { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
-
     }
 }
