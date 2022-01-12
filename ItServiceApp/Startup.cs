@@ -1,5 +1,6 @@
 using System;
 using ItServiceApp.Data;
+using ItServiceApp.Extensions;
 using ItServiceApp.InjectOrnek;
 using ItServiceApp.MapperProfiles;
 using ItServiceApp.Models.Identity;
@@ -46,27 +47,20 @@ namespace ItServiceApp
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-
+                
             }).AddEntityFrameworkStores<MyContext>().AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
 
-            services.AddAutoMapper(options =>
-            {
-                options.AddProfile(typeof(AccountProfile));
-            });
-
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.AddScoped<IMyDependency, NewMyDependency>(); //loose coupling
-            //services.AddTransient<EmailSender>();
+            services.AddApplicationServices(this.Configuration);
 
             services.AddControllersWithViews();
         }
