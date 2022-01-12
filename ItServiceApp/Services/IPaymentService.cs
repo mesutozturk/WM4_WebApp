@@ -1,9 +1,11 @@
-﻿using ItServiceApp.Models.Payment;
+﻿using System.Collections.Generic;
+using ItServiceApp.Models.Payment;
 
 namespace ItServiceApp.Services
 {
     public interface IPaymentService
     {
-        public void Pay(PaymentModel model);
+        public List<InstallmentModel> CheckInstallments(string binNumber, decimal price);
+        public PaymentResponseModel Pay(PaymentModel model);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ItServiceApp.Models;
 using ItServiceApp.Models.Payment;
 using Iyzipay.Model;
@@ -22,9 +23,20 @@ namespace ItServiceApp.Services
                 ThreedsCallbackUrl = section["ThreedsCallbackUrl"],
             };
         }
-        public void Pay(PaymentModel model)
+
+
+        public List<InstallmentModel> CheckInstallments(string binNumber, decimal price)
         {
-            
+
+
+            return null;
+        }
+
+        public PaymentResponseModel Pay(PaymentModel model)
+        {
+
+
+            return null;
         }
     }
 }
