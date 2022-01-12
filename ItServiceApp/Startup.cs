@@ -54,7 +54,6 @@ namespace ItServiceApp
             {
                 // Cookie settings
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
