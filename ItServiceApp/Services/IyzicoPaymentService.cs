@@ -58,8 +58,7 @@ namespace ItServiceApp.Services
             }
 
             var resultModel = _mapper.Map<InstallmentModel>(result.InstallmentDetails[0]);
-
-            Console.WriteLine();
+            
             return resultModel;
         }
 
