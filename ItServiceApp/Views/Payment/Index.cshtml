@@ -21,35 +21,35 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label asp-for="CardModel.CardHolderName"></label>
-                                    <input asp-for="CardModel.CardHolderName"/>
+                                    <input asp-for="CardModel.CardHolderName" />
                                     <span asp-validation-for="CardModel.CardHolderName" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label asp-for="CardModel.CardNumber"></label>
-                                    <input asp-for="CardModel.CardNumber"/>
+                                    <input asp-for="CardModel.CardNumber" id="txtCardNumber" />
                                     <span asp-validation-for="CardModel.CardNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.ExpireMonth"></label>
-                                    <input asp-for="CardModel.ExpireMonth"/>
+                                    <input asp-for="CardModel.ExpireMonth" />
                                     <span asp-validation-for="CardModel.ExpireMonth" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.ExpireYear"></label>
-                                    <input asp-for="CardModel.ExpireYear"/>
+                                    <input asp-for="CardModel.ExpireYear" />
                                     <span asp-validation-for="CardModel.ExpireYear" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.Cvc"></label>
-                                    <input asp-for="CardModel.Cvc"/>
+                                    <input asp-for="CardModel.Cvc" />
                                     <span asp-validation-for="CardModel.Cvc" class="text-danger"></span>
                                 </div>
                             </div>
@@ -146,6 +146,38 @@
     </div>
 </section>
 <!--====== Shoping Checkout End ======-->
+@section Scripts
+{
+<script>
+    $(document).ready(function() {
+        console.log("Jquery OK");
+    });
+
+    $("#txtCardNumber").keyup(function() {
+        var bin = $(this).val();
+        if (bin.length >=6) {
+            console.log(bin);
+            var model = {
+                binNumber: bin
+            };
+            $.ajax({
+                url: '@Url.Action("CheckInstallment", "Payment")',
+                type: "POST",
+                data: model,
+                dataType: "json",
+                error: function(request, status, error) {
+                    console.log(request);
+                },
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+
+        }
+    });
+</script>
+}
+
 @section Styles
 {
 <style>
