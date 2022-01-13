@@ -1,5 +1,4 @@
-﻿using System;
-using ItServiceApp.InjectOrnek;
+﻿using ItServiceApp.InjectOrnek;
 using ItServiceApp.MapperProfiles;
 using ItServiceApp.Services;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +21,6 @@ namespace ItServiceApp.Extensions
             services.AddScoped<IPaymentService, IyzicoPaymentService>();
             services.AddScoped<IMyDependency, NewMyDependency>(); //loose coupling
             //services.AddTransient<EmailSender>();
-
 
             return services;
         }

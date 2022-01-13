@@ -1,0 +1,158 @@
+﻿@model PaymentViewModel
+
+@{
+    ViewBag.Title = $"Ödeme Sayfası";
+}
+<!--====== Page Title start ======-->
+<partial name="Partials/_PageStartPartial" />
+<!--====== Page Title End ======-->
+<!--====== Shoping Checkout Start  ======-->
+<section class="shoping-checkout-area section-gap">
+    <div class="container">
+        <div class="user-actions mb-40">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="billing-details">
+                        <h3 class="title">Billing Details</h3>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label asp-for="CardModel.CardHolderName"></label>
+                                    <input asp-for="CardModel.CardHolderName"/>
+                                    <span asp-validation-for="CardModel.CardHolderName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label asp-for="CardModel.CardNumber"></label>
+                                    <input asp-for="CardModel.CardNumber"/>
+                                    <span asp-validation-for="CardModel.CardNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label asp-for="CardModel.ExpireMonth"></label>
+                                    <input asp-for="CardModel.ExpireMonth"/>
+                                    <span asp-validation-for="CardModel.ExpireMonth" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label asp-for="CardModel.ExpireYear"></label>
+                                    <input asp-for="CardModel.ExpireYear"/>
+                                    <span asp-validation-for="CardModel.ExpireYear" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label asp-for="CardModel.Cvc"></label>
+                                    <input asp-for="CardModel.Cvc"/>
+                                    <span asp-validation-for="CardModel.Cvc" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="order-details mt-md-gap-50">
+                        <h3 class="title">Your Order</h3>
+                        <div class="order-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-name">
+                                            <a href="#">Note Book Mockup</a>
+                                        </td>
+                                        <td class="product-total">
+                                            <span class="sub-total">$250.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">
+                                            <a href="#">Motivational Book Cover</a>
+                                        </td>
+                                        <td class="product-total">
+                                            <span class="sub-total">$20.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">
+                                            <a href="#">Book Cover Softcover</a>
+                                        </td>
+                                        <td class="product-total">
+                                            <span class="sub-total">$50.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="order-subtotal">
+                                            <span>Cart Subtotal</span>
+                                        </td>
+                                        <td class="order-subtotal-price">
+                                            <span class="order-subtotal-amount">$320.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="order-shipping">
+                                            <span>Shipping</span>
+                                        </td>
+                                        <td class="shipping-price">
+                                            <span>$30.00</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>total-price</span>
+                                        </td>
+                                        <td class="product-subtotal">
+                                            <span class="subtotal-amount">$350.00</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="payment-box mt-30">
+                            <div class="payment-method">
+                                <p>
+                                    <input type="radio" id="direct-bank-transfer" name="radio-group" checked>
+                                    <label for="direct-bank-transfer">Direct Bank Transfer</label>
+                                    <span class="mb-10">
+                                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
+                                    </span>
+                                </p>
+                                <p>
+                                    <input type="radio" id="paypal" name="radio-group">
+                                    <label for="paypal">Paypal</label>
+                                </p>
+                                <p>
+                                    <input type="radio" id="cash-on-delivery" name="radio-group">
+                                    <label for="cash-on-delivery">Cash-on-delivery</label>
+                                </p>
+                            </div>
+                            <button class="main-btn">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!--====== Shoping Checkout End ======-->
+@section Styles
+{
+<style>
+    input {
+        border: solid 1px #e3eeff;
+        height: 50px;
+        padding: 0 15px;
+    }
+</style>
+}

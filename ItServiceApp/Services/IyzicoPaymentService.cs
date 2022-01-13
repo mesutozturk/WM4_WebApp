@@ -27,8 +27,7 @@ namespace ItServiceApp.Services
 
         public List<InstallmentModel> CheckInstallments(string binNumber, decimal price)
         {
-
-
+            
             return null;
         }
 
