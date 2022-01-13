@@ -57,10 +57,10 @@ namespace ItServiceApp.Services
                 throw new Exception("Hatalı istek oluturuldu");
             }
 
-            InstallmentModel resultModel = _mapper.Map<InstallmentModel>(result.InstallmentDetails[0]);
+            var resultModel = _mapper.Map<InstallmentModel>(result.InstallmentDetails[0]);
 
             Console.WriteLine();
-            return null;
+            return resultModel;
         }
 
         public PaymentResponseModel Pay(PaymentModel model)

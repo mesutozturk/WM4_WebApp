@@ -12,8 +12,8 @@ namespace ItServiceApp.MapperProfiles
             CreateMap<BasketModel, BasketItem>().ReverseMap();
             CreateMap<AddressModel, Address>().ReverseMap();
             CreateMap<CustomerModel, Buyer>().ReverseMap();
-            CreateMap<InstallmentModel, InstallmentDetail>().ReverseMap();
             CreateMap<InstallmentPriceModel, InstallmentPrice>().ReverseMap();
+            CreateMap<InstallmentModel, InstallmentDetail>().ReverseMap();
         }
     }
 }
