@@ -44,7 +44,7 @@ namespace ItServiceApp.Controllers
             {
                 Installment = model.Installment,
                 Address = new AddressModel(),
-                BasketList = new List<BasketModel>() { model.BasketModel },
+                BasketList = new List<BasketModel>(),
                 Customer = new CustomerModel(),
                 CardModel = model.CardModel,
                 Price = 1000,
