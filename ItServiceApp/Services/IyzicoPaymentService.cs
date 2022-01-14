@@ -66,7 +66,7 @@ namespace ItServiceApp.Services
                 IdentityNumber = "11111111110",
                 LastLoginDate = $"{DateTime.Now:G}",
                 RegistrationDate = $"{user.CreatedDate:G}",
-                RegistrationAddress = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
+                RegistrationAddress = "Cihannuma Mah. Barbaros Bulvarı No:9 Beşiktaş",
                 Ip = model.Ip,
                 City = "Istanbul",
                 Country = "Turkey",
@@ -74,15 +74,28 @@ namespace ItServiceApp.Services
             };
             paymentRequest.Buyer = buyer;
 
-            Address shippingAddress = new Address
+            var billingAddress = new Address
             {
-                ContactName = "Jane Doe",
+                ContactName = $"{user.Name} {user.Surname}",
                 City = "Istanbul",
                 Country = "Turkey",
-                Description = "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1",
+                Description = "Cihannuma Mah. Barbaros Bulvarı No:9 Beşiktaş",
                 ZipCode = "34742"
             };
-            paymentRequest.ShippingAddress = shippingAddress;
+            paymentRequest.BillingAddress = billingAddress;
+
+            var basketItems = new List<BasketItem>();
+            var firstBasketItem = new BasketItem
+            {
+                Id = "BI101",
+                Name = "Binocular",
+                Category1 = "Collectibles",
+                Category2 = "Accessories",
+                ItemType = BasketItemType.VIRTUAL.ToString(),
+                Price = model.Price.ToString(new CultureInfo("en-US"))
+            };
+            basketItems.Add(firstBasketItem);
+            paymentRequest.BasketItems = basketItems;
 
             return paymentRequest;
         }
@@ -118,7 +131,7 @@ namespace ItServiceApp.Services
         {
             var request = this.InitialPaymentRequest(model);
             var payment = Payment.Create(request, _options);
-            return null;
+            return _mapper.Map<PaymentResponseModel>(payment);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using ItServiceApp.Extensions;
 using ItServiceApp.Models.Payment;
@@ -59,7 +60,7 @@ namespace ItServiceApp.Controllers
             var installmentNumber =
                 installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
 
-            paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice : installmentInfo.InstallmentPrices[0].TotalPrice);
+            paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice.Replace('.', ',') : installmentInfo.InstallmentPrices[0].TotalPrice.Replace('.',','));
 
             //legacy code
 
