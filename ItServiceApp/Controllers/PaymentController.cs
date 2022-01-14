@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ItServiceApp.Extensions;
 using ItServiceApp.Models.Payment;
 using ItServiceApp.Services;
 using ItServiceApp.ViewModels;
@@ -48,7 +50,26 @@ namespace ItServiceApp.Controllers
                 Customer = new CustomerModel(),
                 CardModel = model.CardModel,
                 Price = 1000,
+                UserId = HttpContext.GetUserId(),
+                Ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+
             };
+
+            var installmentInfo = _paymentService.CheckInstallments(paymentModel.CardModel.CardNumber.Substring(0, 6), paymentModel.Price);
+
+            var installmentNumber =
+                installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
+
+            if (installmentNumber != null)
+            {
+                paymentModel.PaidPrice = decimal.Parse(installmentNumber.TotalPrice);
+            }
+            else
+            {
+                paymentModel.PaidPrice = decimal.Parse(installmentInfo.InstallmentPrices[0].TotalPrice);
+            }
+
+            //legacy code
 
             var result = _paymentService.Pay(paymentModel);
             return View();
