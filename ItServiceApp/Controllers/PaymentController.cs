@@ -51,8 +51,7 @@ namespace ItServiceApp.Controllers
                 CardModel = model.CardModel,
                 Price = 1000,
                 UserId = HttpContext.GetUserId(),
-                Ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-
+                Ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString()
             };
 
             var installmentInfo = _paymentService.CheckInstallments(paymentModel.CardModel.CardNumber.Substring(0, 6), paymentModel.Price);
@@ -60,14 +59,7 @@ namespace ItServiceApp.Controllers
             var installmentNumber =
                 installmentInfo.InstallmentPrices.FirstOrDefault(x => x.InstallmentNumber == model.Installment);
 
-            if (installmentNumber != null)
-            {
-                paymentModel.PaidPrice = decimal.Parse(installmentNumber.TotalPrice);
-            }
-            else
-            {
-                paymentModel.PaidPrice = decimal.Parse(installmentInfo.InstallmentPrices[0].TotalPrice);
-            }
+            paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice : installmentInfo.InstallmentPrices[0].TotalPrice);
 
             //legacy code
 
