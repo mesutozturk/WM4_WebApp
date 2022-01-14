@@ -8,7 +8,7 @@ namespace ItServiceApp.MapperProfiles
     {
         public PaymentProfile()
         {
-            CreateMap<CardModel, Card>().ReverseMap();
+            CreateMap<CardModel, PaymentCard>().ReverseMap();
             CreateMap<BasketModel, BasketItem>().ReverseMap();
             CreateMap<AddressModel, Address>().ReverseMap();
             CreateMap<CustomerModel, Buyer>().ReverseMap();

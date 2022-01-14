@@ -54,6 +54,8 @@ namespace ItServiceApp.Services
                 PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString()
             };
 
+            paymentRequest.PaymentCard = _mapper.Map<PaymentCard>(model.CardModel);
+
             var user = _userManager.FindByIdAsync(model.UserId).Result;
 
             var buyer = new Buyer
@@ -64,8 +66,8 @@ namespace ItServiceApp.Services
                 GsmNumber = user.PhoneNumber,
                 Email = user.Email,
                 IdentityNumber = "11111111110",
-                LastLoginDate = $"{DateTime.Now:G}",
-                RegistrationDate = $"{user.CreatedDate:G}",
+                LastLoginDate = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}",
                 RegistrationAddress = "Cihannuma Mah. Barbaros Bulvarı No:9 Beşiktaş",
                 Ip = model.Ip,
                 City = "Istanbul",
