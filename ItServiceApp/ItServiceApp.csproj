@@ -15,10 +15,14 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.13" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
 		<PackageReference Include="UsefulMethods" Version="1.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\admin\" />
+	  <Folder Include="Areas\Admin\Controllers\" />
+	  <Folder Include="Areas\Admin\Data\" />
+	  <Folder Include="Areas\Admin\Models\" />
+	  <Folder Include="Areas\Admin\Views\Shared\Partials\" />
 	</ItemGroup>
 </Project>

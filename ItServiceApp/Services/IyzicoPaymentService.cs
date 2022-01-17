@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using AutoMapper;
-using ItServiceApp.Models;
+﻿using AutoMapper;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.Models.Payment;
 using Iyzipay.Model;
@@ -10,6 +6,9 @@ using Iyzipay.Request;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using MUsefulMethods;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace ItServiceApp.Services
 {
@@ -51,10 +50,9 @@ namespace ItServiceApp.Services
                 Currency = Currency.TRY.ToString(),
                 BasketId = StringHelpers.GenerateUniqueCode(),
                 PaymentChannel = PaymentChannel.WEB.ToString(),
-                PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString()
+                PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString(),
+                PaymentCard = _mapper.Map<PaymentCard>(model.CardModel)
             };
-
-            paymentRequest.PaymentCard = _mapper.Map<PaymentCard>(model.CardModel);
 
             var user = _userManager.FindByIdAsync(model.UserId).Result;
 
