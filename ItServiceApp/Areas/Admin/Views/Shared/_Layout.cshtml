@@ -45,10 +45,15 @@
         <!-- end page content -->
     </div>
     <!-- end page-wrapper -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/scripts")
-    @RenderSection("scripts", false)
-    <!-- app.js -->
-    @Scripts.Render("~/Scripts/app.js")
+    <script src="~/admin-assets/js/jquery.min.js"></script>
+    <script src="~/admin-assets/js/jquery-ui.min.js"></script>
+    <script src="~/admin-assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin-assets/js/metismenu.min.js"></script>
+    <script src="~/admin-assets/js/waves.js"></script>
+    <script src="~/admin-assets/js/feather.min.js"></script>
+    <script src="~/admin-assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/admin-assets/plugins/apexcharts/apexcharts.min.js"></script>
+    <script src="~/admin-assets/js/app.js"></script>
+    @await RenderSectionAsync("Scripts",required:false)
 </body>
 </html>
