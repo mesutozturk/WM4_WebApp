@@ -1,13 +1,54 @@
 ﻿<!DOCTYPE html>
+<html lang="tr">
 
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/admin-assets/images/favicon.ico">
+    <link rel="stylesheet" href="~/admin-assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/admin-assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/admin-assets/css/icons.min.css" />
+    <link rel="stylesheet" href="~/admin-assets/css/metisMenu.min.css" />
+    <link rel="stylesheet" href="~/admin-assets/css/app.min.css" />
+    @await RenderSectionAsync("Styles",required:false)
 </head>
+
 <body>
-    <div>
-        @RenderBody()
+    <!-- leftbar-tab-menu -->
+    <partial name="Partials/_leftbar-tab-menu" />
+    <!-- end leftbar-tab-menu-->
+    <!-- Top Bar Start -->
+    <partial name="Partials/_top-bar" />
+    <!-- Top Bar End -->
+
+    <div class="page-wrapper">
+        <!-- Page Content-->
+        <div class="page-content-tab">
+            <!-- main container -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <!-- end container -->
+            <!-- right bar -->
+            <partial name="Partials/_right-bar" />
+            <!-- end right bar -->
+            <!--footer-->
+            <partial name="Partials/_footer" />
+            <!--end footer-->
+        </div>
+        <!-- end page content -->
     </div>
+    <!-- end page-wrapper -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", false)
+    <!-- app.js -->
+    @Scripts.Render("~/Scripts/app.js")
 </body>
 </html>
