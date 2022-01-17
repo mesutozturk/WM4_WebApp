@@ -1,0 +1,23 @@
+{
+  "name": "itserviceapp",
+  "version": "1.0.0",
+  "description": "IT Servis Uygulaması",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesutozturk/WM4_WebApp.git"
+  },
+  "author": "Mesut Öztürk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mesutozturk/WM4_WebApp/issues"
+  },
+  "homepage": "https://github.com/mesutozturk/WM4_WebApp#readme",
+  "dependencies": {
+    "devextreme": "^21.2.4",
+    "devextreme-aspnet-data": "^2.8.6"
+  }
+}
