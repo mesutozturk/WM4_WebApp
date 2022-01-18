@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mesutozturk/WM4_WebApp#readme",
   "dependencies": {
     "devextreme": "^21.2.4",
-    "devextreme-aspnet-data": "^2.8.6"
+    "devextreme-aspnet-data": "^2.8.6",
+    "jquery": "^3.6.0"
   }
 }

@@ -40,7 +40,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
                 {
                     Email = "Deneme" + i,
                     Surname = "soyad" + i,
-                    Name = "ad" + 1
+                    Name = "ad" + i
                 });
             }
 
