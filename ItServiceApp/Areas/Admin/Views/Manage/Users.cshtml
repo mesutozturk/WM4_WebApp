@@ -40,3 +40,46 @@
     </div><!--end row-->
 
 </div>
+
+@section Styles
+{
+<link rel="stylesheet" href="~/vendor/devextreme/dist/css/dx.light.css">
+}
+
+@section Scripts
+{
+<script type="text/javascript" src="~/vendor/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/vendor/devextreme/dist/js/dx.all.js"></script>
+<script>
+    $(()=> {
+        var userData = null;
+        $.ajax({
+            url: '@Url.Action("GetTest","UserApi")',
+            method: 'GET',
+            success: function(response) {
+                console.log(response);
+                if (response.isSuccess) {
+                    userData = response.data;
+                    loadGrid();
+                } else {
+                    alert(response.errorMessage);
+                }
+            },
+            error:function(a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+
+        function loadGrid() {
+            $('#dxGrid').dxDataGrid({
+                dataSource: userData,
+                columns: ['name', 'surname', 'email'],
+                showBorders: true,
+            });
+        }
+
+    })
+</script>
+}

@@ -44,7 +44,10 @@ namespace ItServiceApp.Areas.Admin.Controllers
                 });
             }
 
-            return Ok(users);
+            return Ok(new JsonResponseViewModel()
+            {
+                Data = users
+            });
         }
     }
 }
