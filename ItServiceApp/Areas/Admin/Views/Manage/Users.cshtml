@@ -50,7 +50,8 @@
 {
 
 <script>
-    $(()=> {
+    var dataGrid = null;
+    $(() => {
         var userData = null;
         $.ajax({
             url: '@Url.Action("GetUsers","UserApi")',
@@ -64,7 +65,7 @@
                     alert(response.errorMessage);
                 }
             },
-            error:function(a, b, c) {
+            error: function(a, b, c) {
                 console.log(a);
                 console.log(b);
                 console.log(c);
@@ -72,7 +73,7 @@
         });
 
         function loadGrid() {
-            $('#dxGrid').dxDataGrid({
+            dataGrid = $('#dxGrid').dxDataGrid({
                 showColumnLines: true,
                 allowColumnResizing: true,
                 showRowLines: true,
@@ -104,6 +105,9 @@
                     allowedPageSizes: [5, 15, 30, 45],
                     showInfo: true
                 },
+                selection: {
+                    mode: "multiple"
+                },
                 columns: [
                     {
                         caption: 'Id',
@@ -122,11 +126,22 @@
                     {
                         caption: 'E-Posta',
                         dataField: "email"
+                    },
+                    {
+                        caption: 'Detay',
+                        cellTemplate: function(container, options) {
+                            var current = options.data;
+                            var url = '@Url.Action("UserDetail","Manage")' + '/' + current.id;
+                            $("<a href=" + url + "/>")
+                                .text("Detay")
+                                .addClass('btn btn-block btn-info btn-sm')
+                                .appendTo(container);
+
+                        }
                     }
                 ]
-            });
+            }).dxDataGrid("instance");
         }
-
-    })
+    });
 </script>
 }
