@@ -194,7 +194,8 @@
                                             dataSource: {
                                                 store: DevExpress.data.AspNet.createStore({
                                                     key: "id",
-                                                    loadUrl: "../../../api/addressapi/statelookup"
+                                                    loadUrl: "../../../api/addressapi/statelookup",
+                                                    filter: options.data ? ['CityId', '=', current.cityId] : null
                                                 }),
                                                 _fnFeatureHtmlPaginate: true,
                                                 pageSize: 10
