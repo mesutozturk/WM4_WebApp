@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
     [Authorize(Roles = "Admin")]
     public class UserApiController : ControllerBase
     {
@@ -29,7 +31,30 @@ namespace ItServiceApp.Areas.Admin.Controllers
 
             return Ok(DataSourceLoader.Load(data, loadOptions));
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateUsers(string key, string values)
+        {
+            var data = _userManager.Users.FirstOrDefault(x => x.Id == key);
+            if (data == null)
+                return StatusCode(StatusCodes.Status409Conflict, new JsonResponseViewModel()
+                {
+                    IsSuccess = false,
+                    ErrorMessage= "Kullanıcı bulunamadı"
+                });
 
+            JsonConvert.PopulateObject(values, data);
+            if (!TryValidateModel(data))
+                return BadRequest(ModelState.ToFullErrorString());
+
+            var result =await _userManager.UpdateAsync(data);
+            if (!result.Succeeded)
+                return BadRequest(new JsonResponseViewModel()
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "Kullanıcı Güncellenemedi"
+                });
+            return Ok(new JsonResponseViewModel());
+        }
         [HttpGet]
         public IActionResult GetTest()
         {
