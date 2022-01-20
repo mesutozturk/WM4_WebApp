@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using ItServiceApp.Extensions;
 using ItServiceApp.Models.Identity;
 using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using DevExtreme.AspNet.Data;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {
@@ -23,14 +23,11 @@ namespace ItServiceApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUsers()
+        public IActionResult GetUsers(DataSourceLoadOptions loadOptions)
         {
-            var users = _userManager.Users.OrderBy(x => x.CreatedDate).ToList();
+            var data = _userManager.Users;
 
-            return Ok(new JsonResponseViewModel()
-            {
-                Data = users
-            });
+            return Ok(DataSourceLoader.Load(data, loadOptions));
         }
 
         [HttpGet]

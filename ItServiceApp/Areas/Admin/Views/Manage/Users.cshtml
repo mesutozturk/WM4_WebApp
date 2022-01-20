@@ -48,38 +48,29 @@
 
 @section Scripts
 {
-
+<script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 <script>
     var dataGrid = null;
     $(() => {
-        var userData = null;
-        $.ajax({
-            url: '@Url.Action("GetUsers","UserApi")',
-            method: 'GET',
-            success: function(response) {
-                console.log(response);
-                if (response.isSuccess) {
-                    userData = response.data;
-                    loadGrid();
-                } else {
-                    alert(response.errorMessage);
-                }
-            },
-            error: function(a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
-            }
-        });
-
+        var url = '../../../api/userapi';
         function loadGrid() {
             dataGrid = $('#dxGrid').dxDataGrid({
+                remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
+                dataSource: DevExpress.data.AspNet.createStore({
+                    key: 'id',
+                    loadUrl: `${url}/getusers`
+                    //insertUrl: `${url}/InsertOrder`,
+                    //updateUrl: `${url}/UpdateOrder`,
+                    //deleteUrl: `${url}/DeleteOrder`,
+                    //onBeforeSend(method, ajaxOptions) {
+                    //    ajaxOptions.xhrFields = { withCredentials: true };
+                    //}
+                }),
                 showColumnLines: true,
                 allowColumnResizing: true,
                 showRowLines: true,
                 rowAlternationEnabled: true,
                 showBorders: true,
-                dataSource: userData,
                 searchPanel: {
                     visible: true,
                     width: 240,
@@ -128,6 +119,11 @@
                         dataField: "email"
                     },
                     {
+                        caption: 'Email Onay',
+                        dataField: 'emailConfirmed',
+                        dataType: 'boolean'
+                    },
+                    {
                         caption: 'Kayıt Tarihi',
                         dataField: "createdDate",
                         dataType: "date",
@@ -149,6 +145,8 @@
                 ]
             }).dxDataGrid("instance");
         }
+
+        loadGrid();
     });
 </script>
 }
