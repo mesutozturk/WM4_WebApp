@@ -149,7 +149,43 @@
                         },
                         formItem: { visible: false }
                     }
-                ]
+                ],
+                masterDetail: {
+                    enabled: true,
+                    template(container, options) {
+                        var currentUser = options.data;
+                        $('<div>')
+                            .dxDataGrid({
+                                columnAutoWidth: true,
+                                showBorders: true,
+                                columns: ['Subject', {
+                                    dataField: 'StartDate',
+                                    dataType: 'date',
+                                }, {
+                                    dataField: 'DueDate',
+                                    dataType: 'date',
+                                }, 'Priority', {
+                                    caption: 'Completed',
+                                    dataType: 'boolean',
+                                    calculateCellValue(rowData) {
+                                        return rowData.Status === 'Completed';
+                                    },
+                                }],
+                                remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
+                                dataSource: DevExpress.data.AspNet.createStore({
+                                    key: 'id',
+                                    loadUrl: `${url}/getusers`,
+                                    updateUrl: `${url}/updateusers`
+                                    //insertUrl: `${url}/InsertOrder`,
+                    
+                                    //deleteUrl: `${url}/DeleteOrder`,
+                                    //onBeforeSend(method, ajaxOptions) {
+                                    //    ajaxOptions.xhrFields = { withCredentials: true };
+                                    //}
+                                }),
+                            }).appendTo(container);
+                    },
+                },
             }).dxDataGrid("instance");
         }
 
