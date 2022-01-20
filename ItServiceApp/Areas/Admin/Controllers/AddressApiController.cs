@@ -1,15 +1,13 @@
-﻿using System;
-using System.Linq;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using ItServiceApp.Data;
 using ItServiceApp.Extensions;
 using ItServiceApp.Models.Entities;
 using ItServiceApp.ViewModels;
-using Iyzipay.Model.V2;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {
@@ -23,10 +21,11 @@ namespace ItServiceApp.Areas.Admin.Controllers
             _dbContext = dbContext;
         }
 
+        #region Cruds
         [HttpGet]
-        public IActionResult Get(DataSourceLoadOptions options)
+        public IActionResult Get(string userId, DataSourceLoadOptions options)
         {
-            var data = _dbContext.Addresses;
+            var data = _dbContext.Addresses.Where(x => x.UserId == userId);
 
             return Ok(DataSourceLoader.Load(data, options));
         }
@@ -60,7 +59,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
                 });
             return Ok(new JsonResponseViewModel());
         }
-        [HttpPut("update")]
+        [HttpPut]
         public IActionResult Update(Guid key, string values)
         {
             var data = _dbContext.Addresses.Find(key);
@@ -83,6 +82,50 @@ namespace ItServiceApp.Areas.Admin.Controllers
                     ErrorMessage = "Adres güncellenemedi"
                 });
             return Ok(new JsonResponseViewModel());
+        }
+        [HttpDelete]
+        public IActionResult Delete(Guid key)
+        {
+            var data = _dbContext.Addresses.Find(key);
+            if (data == null)
+                return StatusCode(StatusCodes.Status409Conflict, "Adres bulunamadı");
+
+            _dbContext.Addresses.Remove(data);
+
+            var result = _dbContext.SaveChanges();
+            if (result == 0)
+                return BadRequest("Silme işlemi başarısız");
+            return Ok(new JsonResponseViewModel());
+        }
+        #endregion
+
+        [HttpGet]
+        public object CityLookup(DataSourceLoadOptions loadOptions)
+        {
+            var data = _dbContext.Cities
+                .OrderBy(x => x.Id)
+                .Select(x => new
+                {
+                    id = x.Id,
+                    Value = x.Id,
+                    Text = $"{x.Name}"
+                });
+
+            return Ok(DataSourceLoader.Load(data, loadOptions));
+        }
+        [HttpGet]
+        public object StateLookup(DataSourceLoadOptions loadOptions)
+        {
+            var data = _dbContext.States
+                .OrderBy(x => x.Name)
+                .Select(x => new
+                {
+                    id = x.Id,
+                    Value = x.Id,
+                    Text = $"{x.Name}"
+                });
+
+            return Ok(DataSourceLoader.Load(data, loadOptions));
         }
     }
 }

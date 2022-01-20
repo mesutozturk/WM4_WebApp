@@ -153,36 +153,76 @@
                 masterDetail: {
                     enabled: true,
                     template(container, options) {
-                        var currentUser = options.data;
+                        var current = options.data;
                         $('<div>')
                             .dxDataGrid({
                                 columnAutoWidth: true,
                                 showBorders: true,
-                                columns: ['Subject', {
-                                    dataField: 'StartDate',
-                                    dataType: 'date',
-                                }, {
-                                    dataField: 'DueDate',
-                                    dataType: 'date',
-                                }, 'Priority', {
-                                    caption: 'Completed',
-                                    dataType: 'boolean',
-                                    calculateCellValue(rowData) {
-                                        return rowData.Status === 'Completed';
+                                columns: [
+                                    {
+                                        caption : "Adres",
+                                        dataField: "line"
                                     },
-                                }],
+                                    {
+                                        caption : "Posta Kodu",
+                                        dataField: "postCode"
+                                    },
+                                    {
+                                        caption : "Adres Tipi",
+                                        dataField: "addressType"
+                                    },
+                                    {
+                                        caption : "İl",
+                                        dataField: "state.city.name",
+                                        lookup: {
+                                            dataSource: {
+                                                store: DevExpress.data.AspNet.createStore({
+                                                    key: "id",
+                                                    loadUrl: "../../../api/addressapi/citylookup"
+                                                }),
+                                                _fnFeatureHtmlPaginate: true,
+                                                pageSize: 10
+                                            },
+                                            displayExpr: "text",
+                                            valueExpr: "value"
+                                        }
+                                    }, 
+                                    {
+                                        caption : "İlçe",
+                                        dataField: "state.name",
+                                        lookup: {
+                                            dataSource: {
+                                                store: DevExpress.data.AspNet.createStore({
+                                                    key: "id",
+                                                    loadUrl: "../../../api/addressapi/statelookup"
+                                                }),
+                                                _fnFeatureHtmlPaginate: true,
+                                                pageSize: 10
+                                            },
+                                            displayExpr: "text",
+                                            valueExpr: "value"
+                                        }
+                                    }
+                                    ],
+                                editing: {
+                                    mode: 'form',
+                                    allowAdding: true,
+                                    allowUpdating: true,
+                                    allowDeleting: true
+                                },
                                 remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
                                 dataSource: DevExpress.data.AspNet.createStore({
                                     key: 'id',
-                                    loadUrl: `${url}/getusers`,
-                                    updateUrl: `${url}/updateusers`
-                                    //insertUrl: `${url}/InsertOrder`,
-                    
-                                    //deleteUrl: `${url}/DeleteOrder`,
+                                    loadUrl: "../../../api/addressapi/get",
+                                    loadParams: { userId: current.id },
+                                    insertUrl: "../../../api/addressapi/insert",
+                                    updateUrl: "../../../api/addressapi/update",
+                                    deleteUrl: "../../../api/addressapi/delete"
+
                                     //onBeforeSend(method, ajaxOptions) {
                                     //    ajaxOptions.xhrFields = { withCredentials: true };
                                     //}
-                                }),
+                                })
                             }).appendTo(container);
                     },
                 },
