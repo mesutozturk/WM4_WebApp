@@ -27,8 +27,8 @@ namespace ItServiceApp.Areas.Admin.Controllers
         public IActionResult Get(string userId, DataSourceLoadOptions options)
         {
             var data = _dbContext.Addresses
-                .Include(x=>x.State)
-                .ThenInclude(x=>x.City)
+                .Include(x => x.State)
+                .ThenInclude(x => x.City)
                 .Where(x => x.UserId == userId);
 
             return Ok(DataSourceLoader.Load(data, options));
