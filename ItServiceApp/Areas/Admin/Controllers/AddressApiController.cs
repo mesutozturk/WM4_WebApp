@@ -118,9 +118,10 @@ namespace ItServiceApp.Areas.Admin.Controllers
             return Ok(DataSourceLoader.Load(data, loadOptions));
         }
         [HttpGet]
-        public object StateLookup(DataSourceLoadOptions loadOptions)
+        public object StateLookup(int cityId, DataSourceLoadOptions loadOptions)
         {
             var data = _dbContext.States
+                .Where(x => x.CityId == cityId)
                 .OrderBy(x => x.Name)
                 .Select(x => new
                 {

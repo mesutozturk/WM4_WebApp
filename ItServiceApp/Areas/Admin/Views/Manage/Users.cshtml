@@ -61,7 +61,7 @@
                     loadUrl: `${url}/getusers`,
                     updateUrl: `${url}/updateusers`
                     //insertUrl: `${url}/InsertOrder`,
-                    
+
                     //deleteUrl: `${url}/DeleteOrder`,
                     //onBeforeSend(method, ajaxOptions) {
                     //    ajaxOptions.xhrFields = { withCredentials: true };
@@ -173,7 +173,7 @@
                                     },
                                     {
                                         caption : "İl",
-                                        dataField: "state.city.name",
+                                        dataField: "state.city.id",
                                         lookup: {
                                             dataSource: {
                                                 store: DevExpress.data.AspNet.createStore({
@@ -186,16 +186,16 @@
                                             displayExpr: "text",
                                             valueExpr: "value"
                                         }
-                                    }, 
+                                    },
                                     {
                                         caption : "İlçe",
-                                        dataField: "state.name",
+                                        dataField: "state.id",
                                         lookup: {
-                                            dataSource: {
+                                            dataSource:{
                                                 store: DevExpress.data.AspNet.createStore({
                                                     key: "id",
                                                     loadUrl: "../../../api/addressapi/statelookup",
-                                                    filter: options.data ? ['CityId', '=', current.cityId] : null
+                                                    //loadParams: { cityId: 57 }
                                                 }),
                                                 _fnFeatureHtmlPaginate: true,
                                                 pageSize: 10
