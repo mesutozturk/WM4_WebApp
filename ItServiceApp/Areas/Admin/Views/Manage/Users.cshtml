@@ -214,6 +214,13 @@
                                     allowUpdating: true,
                                     allowDeleting: true
                                 },
+                                onEditorPrepared: function (opt) {  
+                                    if (opt.parentType == 'dataRow' && opt.dataField == 'state.city.id') {  
+                                        opt.editorElement.dxSelectBox('instance').option('onValueChanged', function (e) {
+                                            console.log(e);
+                                        });  
+                                    }  
+                                },
                                 remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
                                 dataSource: DevExpress.data.AspNet.createStore({
                                     key: 'id',
