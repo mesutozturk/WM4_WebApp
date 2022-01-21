@@ -191,15 +191,18 @@
                                         caption : "İlçe",
                                         dataField: "state.id",
                                         lookup: {
-                                            dataSource:{
-                                                store: DevExpress.data.AspNet.createStore({
-                                                    key: "id",
-                                                    loadUrl: "../../../api/addressapi/statelookup",
-                                                    //loadParams: { cityId: 57 }
-                                                }),
-                                                _fnFeatureHtmlPaginate: true,
-                                                pageSize: 10
+                                            dataSource(opt) {
+                                                console.log(opt);
+                                                return {
+                                                    store: DevExpress.data.AspNet.createStore({
+                                                        key: "id",
+                                                        loadUrl: "../../../api/addressapi/statelookup"
+                                                    }),
+                                                    filter: opt.data ? ['stateId', '=', opt.data.stateId] : null
+                                                };
                                             },
+                                            _fnFeatureHtmlPaginate: true,
+                                            pageSize: 10,
                                             displayExpr: "text",
                                             valueExpr: "value"
                                         }
