@@ -198,7 +198,7 @@
                                                         key: "id",
                                                         loadUrl: "../../../api/addressapi/statelookup"
                                                     }),
-                                                    filter: opt.data ? ['stateId', '=', opt.data.stateId] : null
+                                                    filter: opt.data ? ['CityId', '=', opt.data.state.cityId] : null
                                                 };
                                             },
                                             _fnFeatureHtmlPaginate: true,

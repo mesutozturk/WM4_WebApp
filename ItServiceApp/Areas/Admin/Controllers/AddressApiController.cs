@@ -126,7 +126,8 @@ namespace ItServiceApp.Areas.Admin.Controllers
                 {
                     id = x.Id,
                     Value = x.Id,
-                    Text = $"{x.Name}"
+                    Text = $"{x.Name}",
+                    CityId = x.CityId
                 });
 
             return Ok(DataSourceLoader.Load(data, loadOptions));
