@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using DevExtreme.AspNet.Data;
+﻿using DevExtreme.AspNet.Data;
 using ItServiceApp.Data;
 using ItServiceApp.Extensions;
 using ItServiceApp.Models.Entities;
 using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {
@@ -23,7 +22,6 @@ namespace ItServiceApp.Areas.Admin.Controllers
         }
 
         #region Crud
-
         [HttpGet]
         public IActionResult Get(DataSourceLoadOptions options)
         {
