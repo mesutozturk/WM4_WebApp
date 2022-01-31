@@ -15,6 +15,7 @@ namespace ItServiceApp.Extensions
             {
                 options.AddProfile(typeof(PaymentProfile));
                 options.AddProfile(typeof(AccountProfile));
+                options.AddProfile<SubscriptionProfiles>();
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
