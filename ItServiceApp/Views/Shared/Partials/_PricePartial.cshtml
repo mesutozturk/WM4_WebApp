@@ -3,61 +3,61 @@
 
 }
 <!--====== Pricing Section Start ======-->
-    <section class="pricing-section section-gap soft-blue-bg">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-lg-6 col-md-6">
-                    <div class="section-title with-right-border mb-50">
-                        <span class="title-tag">plans</span>
-                        <h2 class="title">Here is plans</h2>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <ul class="nav nav-pills pricing-tab-btn" id="pricingOneTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="pill" href="#monthly-item" role="tab">Monthly</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#yearly-item">Yearly</a>
-                        </li>
-                    </ul>
+<section class="pricing-section section-gap soft-blue-bg">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-lg-6 col-md-6">
+                <div class="section-title with-right-border mb-50">
+                    <span class="title-tag">plans</span>
+                    <h2 class="title">Here is plans</h2>
                 </div>
             </div>
-            <div class="tab-content" id="pricingOneTabContent">
-                <div class="tab-pane fade show active" id="monthly-item" role="tabpanel">
-                    <div class="row justify-content-center">
-                        @foreach (var item in Model.Where(x => x.Month == 1))
-                        {
-                            <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
-                                <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
-                                    <p class="plan-name">@item.Name</p>
-                                    <h3 class="price"><span>@item.Price</span> ₺</h3>
-                                    <span class="plan-duration">Per @item.Month Month</span>
-                                    <p>@item.Description</p>
-                                    <a class="plans-btn" href="#">Purchase Now</a>
-                                </div>
+            <div class="col-auto">
+                <ul class="nav nav-pills pricing-tab-btn" id="pricingOneTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#monthly-item" role="tab">Monthly</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#yearly-item">Yearly</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content" id="pricingOneTabContent">
+            <div class="tab-pane fade show active" id="monthly-item" role="tabpanel">
+                <div class="row justify-content-center">
+                    @foreach (var item in Model.Where(x => x.Month == 1))
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
+                            <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
+                                <p class="plan-name">@item.Name</p>
+                                <h3 class="price"><span>@item.Price</span> ₺</h3>
+                                <span class="plan-duration">Per @item.Month Month</span>
+                                <p>@item.Description</p>
+                                <a class="plans-btn" href="#">Purchase Now</a>
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
-                <div class="tab-pane fade" id="yearly-item" role="tabpanel">
-                    <div class="row justify-content-center">
-                        @foreach (var item in Model.Where(x => x.Month == 12))
-                        {
-                            <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
-                                <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
-                                    <p class="plan-name">@item.Name</p>
-                                    <h3 class="price"><span>@item.Price</span> ₺</h3>
-                                    <span class="plan-duration">Per @item.Month Month</span>
-                                    <p>@item.Description</p>
-                                    <a class="plans-btn" href="#">Purchase Now</a>
-                                </div>
+            </div>
+            <div class="tab-pane fade" id="yearly-item" role="tabpanel">
+                <div class="row justify-content-center">
+                    @foreach (var item in Model.Where(x => x.Month == 12))
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-8 mt-30">
+                            <div class="pricing-plan-item" style="background-image: url(~/user-assets/img/plans-thumb.jpg);">
+                                <p class="plan-name">@item.Name</p>
+                                <h3 class="price"><span>@item.Price</span> ₺</h3>
+                                <span class="plan-duration">Per @item.Month Month</span>
+                                <p>@item.Description</p>
+                                <a class="plans-btn" href="#">Purchase Now</a>
                             </div>
-                        }
-                        
-                    </div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
-    </section>
-    <!--====== Pricing Section End ======-->
+    </div>
+</section>
+<!--====== Pricing Section End ======-->
