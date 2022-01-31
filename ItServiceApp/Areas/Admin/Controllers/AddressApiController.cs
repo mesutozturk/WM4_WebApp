@@ -66,7 +66,9 @@ namespace ItServiceApp.Areas.Admin.Controllers
         [HttpPut]
         public IActionResult Update(Guid key, string values)
         {
-            var data = _dbContext.Addresses.Find(key);
+            var data = _dbContext.Addresses
+                .Include(x=>x.State.City)
+                .FirstOrDefault(x=>x.Id == key);
             if (data == null)
                 return BadRequest(new JsonResponseViewModel()
                 {
@@ -77,7 +79,7 @@ namespace ItServiceApp.Areas.Admin.Controllers
             JsonConvert.PopulateObject(values, data);
             if (!TryValidateModel(data))
                 return BadRequest(ModelState.ToFullErrorString());
-
+            
             var result = _dbContext.SaveChanges();
             if (result == 0)
                 return BadRequest(new JsonResponseViewModel()

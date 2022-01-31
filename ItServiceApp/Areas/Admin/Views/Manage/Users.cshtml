@@ -48,8 +48,8 @@
 
 @section Scripts
 {
-<script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
-<script>
+    <script src="~/vendor/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+    <script>
     var dataGrid = null;
     $(() => {
         var url = '../../../api/userapi';
@@ -59,12 +59,14 @@
                 dataSource: DevExpress.data.AspNet.createStore({
                     key: 'id',
                     loadUrl: `${url}/getusers`,
-                    updateUrl: `${url}/updateusers`
+                    updateUrl: `${url}/updateusers`,
                     //insertUrl: `${url}/InsertOrder`,
 
                     //deleteUrl: `${url}/DeleteOrder`,
                     //onBeforeSend(method, ajaxOptions) {
                     //    ajaxOptions.xhrFields = { withCredentials: true };
+                    //    console.log(method);
+                    //    console.log(ajaxOptions);
                     //}
                 }),
                 editing: {
@@ -214,12 +216,12 @@
                                     allowUpdating: true,
                                     allowDeleting: true
                                 },
-                                onEditorPrepared: function (opt) {  
-                                    if (opt.parentType == 'dataRow' && opt.dataField == 'state.city.id') {  
+                                onEditorPrepared: function (opt) {
+                                    if (opt.parentType == 'dataRow' && opt.dataField == 'state.city.id') {
                                         opt.editorElement.dxSelectBox('instance').option('onValueChanged', function (e) {
                                             console.log(e);
-                                        });  
-                                    }  
+                                        });
+                                    }
                                 },
                                 remoteOperations: { paging: true, filtering: true, sorting: true, grouping: true, summary: true, groupPaging: true },
                                 dataSource: DevExpress.data.AspNet.createStore({
@@ -228,11 +230,20 @@
                                     loadParams: { userId: current.id },
                                     insertUrl: "../../../api/addressapi/insert",
                                     updateUrl: "../../../api/addressapi/update",
-                                    deleteUrl: "../../../api/addressapi/delete"
+                                    deleteUrl: "../../../api/addressapi/delete",
 
-                                    //onBeforeSend(method, ajaxOptions) {
-                                    //    ajaxOptions.xhrFields = { withCredentials: true };
-                                    //}
+                                    onBeforeSend(method, ajaxOptions) {
+                                        ajaxOptions.xhrFields = { withCredentials: true };
+                                        if (method === "update") {
+                                            var dataStr = ajaxOptions.data.values;
+                                            var data = JSON.parse(dataStr);
+                                            data.stateId = data.state.id;
+                                            delete data["state"];
+                                            dataStr = JSON.stringify(data);
+                                            ajaxOptions.data.values = dataStr;
+                                        }
+                                        console.log(ajaxOptions);
+                                    }
                                 })
                             }).appendTo(container);
                     },
@@ -242,5 +253,5 @@
 
         loadGrid();
     });
-</script>
+    </script>
 }
