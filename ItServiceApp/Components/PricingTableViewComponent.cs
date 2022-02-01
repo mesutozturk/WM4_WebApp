@@ -9,9 +9,9 @@ namespace ItServiceApp.Components
     public class PricingTableViewComponent : ViewComponent
     {
         private readonly MyContext _dbContext;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public PricingTableViewComponent(MyContext dbContext, Mapper mapper)
+        public PricingTableViewComponent(MyContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
