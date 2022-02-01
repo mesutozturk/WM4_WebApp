@@ -32,7 +32,7 @@
                                 <h3 class="price"><span>@item.Price</span> ₺</h3>
                                 <span class="plan-duration">Per @item.Month Month</span>
                                 <p>@item.Description</p>
-                                <a class="plans-btn" href="#">Purchase Now</a>
+                                <a class="plans-btn" asp-controller="Payment" asp-action="Purchase" asp-route-id="@item.Id">Purchase Now</a>
                             </div>
                         </div>
                     }
@@ -48,7 +48,7 @@
                                 <h3 class="price"><span>@item.Price</span> ₺</h3>
                                 <span class="plan-duration">Per @item.Month Month</span>
                                 <p>@item.Description</p>
-                                <a class="plans-btn" href="#">Purchase Now</a>
+                                <a class="plans-btn" asp-controller="Payment" asp-action="Purchase" asp-route-id="@item.Id">Purchase Now</a>
                             </div>
                         </div>
                     }
