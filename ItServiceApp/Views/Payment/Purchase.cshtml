@@ -1,4 +1,5 @@
-﻿@model PaymentViewModel
+﻿@using System.Globalization
+@model PaymentViewModel
 
 @{
     ViewBag.Title = $"Ödeme Sayfası";
@@ -16,8 +17,8 @@
         <div class="user-actions mb-40">
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
-        <form asp-action="Index" method="post">
-            <input asp-for="Installment" type="hidden" id="hdInstallment" value="1"/>
+        <form asp-action="Purchase" method="post">
+            <input asp-for="Installment" type="hidden" id="hdInstallment" value="1" />
             <div class="row">
                 <div class="col-lg-6">
                     <div class="billing-details">
@@ -26,35 +27,35 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label asp-for="CardModel.CardHolderName"></label>
-                                    <input asp-for="CardModel.CardHolderName"/>
+                                    <input asp-for="CardModel.CardHolderName" />
                                     <span asp-validation-for="CardModel.CardHolderName" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label asp-for="CardModel.CardNumber"></label>
-                                    <input asp-for="CardModel.CardNumber" id="txtCardNumber"/>
+                                    <input asp-for="CardModel.CardNumber" id="txtCardNumber" />
                                     <span asp-validation-for="CardModel.CardNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.ExpireMonth"></label>
-                                    <input asp-for="CardModel.ExpireMonth"/>
+                                    <input asp-for="CardModel.ExpireMonth" />
                                     <span asp-validation-for="CardModel.ExpireMonth" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.ExpireYear"></label>
-                                    <input asp-for="CardModel.ExpireYear"/>
+                                    <input asp-for="CardModel.ExpireYear" />
                                     <span asp-validation-for="CardModel.ExpireYear" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label asp-for="CardModel.Cvc"></label>
-                                    <input asp-for="CardModel.Cvc"/>
+                                    <input asp-for="CardModel.Cvc" />
                                     <span asp-validation-for="CardModel.Cvc" class="text-danger"></span>
                                 </div>
                             </div>
@@ -67,18 +68,18 @@
                         <div class="order-table table-responsive">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Taksit Sayısı</th>
-                                    <th>Ödenecek Tutar</th>
-                                </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>Taksit Sayısı</th>
+                                        <th>Ödenecek Tutar</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="table-installment">
                                 </tbody>
                             </table>
                         </div>
                         <div class="payment-box mt-30">
-                            <input type="submit" class="main-btn" value="Ödeme Yap"/>
+                            <input type="submit" class="main-btn" value="Ödeme Yap" />
                         </div>
                     </div>
                 </div>
@@ -94,12 +95,13 @@
         console.log("Jquery OK");
     });
 
-    $("#txtCardNumber").keyup(function() {
+    $("#txtCardNumber").blur(function() {
         var bin = $(this).val();
-        if (bin.length >=6) {
+        if (bin.length >= 6 && bin.length <= 16) {
             //console.log(bin);
             var model = {
-                binNumber: bin
+                binNumber: bin,
+                price: @ViewBag.Subs.Price.ToString(new CultureInfo("en-US"))
             };
             $.ajax({
                 url: '@Url.Action("CheckInstallment", "Payment")',
