@@ -124,7 +124,7 @@ namespace ItServiceApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Purchase(PaymentViewModel model)
         {
-            var type = _dbContext.SubscriptionTypes.Find(Guid.Parse(model.BasketModel.Id));
+            var type = await _dbContext.SubscriptionTypes.FindAsync(Guid.Parse(model.BasketModel.Id));
 
             var basketModel = new BasketModel()
             {
