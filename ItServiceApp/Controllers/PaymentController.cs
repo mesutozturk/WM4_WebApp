@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using AutoMapper;
 using ItServiceApp.Data;
 using ItServiceApp.Extensions;
+using ItServiceApp.Models.Identity;
 using ItServiceApp.Models.Payment;
 using ItServiceApp.Services;
 using ItServiceApp.ViewModels;
 using Iyzipay.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ItServiceApp.Controllers
 {
@@ -20,12 +24,14 @@ namespace ItServiceApp.Controllers
         private readonly IPaymentService _paymentService;
         private readonly MyContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PaymentController(IPaymentService paymentService, MyContext dbContext, IMapper mapper)
+        public PaymentController(IPaymentService paymentService, MyContext dbContext, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _paymentService = paymentService;
             _dbContext = dbContext;
             _mapper = mapper;
+            _userManager = userManager;
             var cultureInfo = CultureInfo.GetCultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
@@ -92,30 +98,80 @@ namespace ItServiceApp.Controllers
 
             ViewBag.Subs = model;
 
-            //var model = new PaymentViewModel()
-            //{
-            //    BasketModel = new BasketModel()
-            //    {
-            //        Category1 = data.Name,
-            //        ItemType = BasketItemType.VIRTUAL.ToString(),
-            //        Id = data.Id.ToString(),
-            //        Name = data.Name,
-            //        Price = data.Price.ToString(new CultureInfo("en-us"))
-            //    }
-            //};
+            var addresses = _dbContext.Addresses
+                .Where(x => x.UserId == HttpContext.GetUserId())
+                .ToList()
+                .Select(x => _mapper.Map<AddressViewModel>(x))
+                .ToList();
 
-            return View();
+            ViewBag.Addresses = addresses;
+
+            var model2 = new PaymentViewModel()
+            {
+                BasketModel = new BasketModel()
+                {
+                    Category1 = data.Name,
+                    ItemType = BasketItemType.VIRTUAL.ToString(),
+                    Id = data.Id.ToString(),
+                    Name = data.Name,
+                    Price = data.Price.ToString(new CultureInfo("en-us"))
+                }
+            };
+
+            return View(model2);
         }
 
         [HttpPost]
-        public IActionResult Purchase(PaymentViewModel model)
+        public async Task<IActionResult> Purchase(PaymentViewModel model)
         {
+            var type = _dbContext.SubscriptionTypes.Find(Guid.Parse(model.BasketModel.Id));
+
+            var basketModel = new BasketModel()
+            {
+                Category1 = type.Name,
+                ItemType = BasketItemType.VIRTUAL.ToString(),
+                Id = type.Id.ToString(),
+                Name = type.Name,
+                Price = type.Price.ToString(new CultureInfo("en-us"))
+            };
+
+            var user = await _userManager.FindByIdAsync(HttpContext.GetUserId());
+
+            var address = _dbContext.Addresses
+                .Include(x => x.State.City)
+                .First(x => x.Id == Guid.Parse(model.AddressModel.Id));
+
+            var addressModel = new AddressModel()
+            {
+                City = address.State.City.Name,
+                ContactName = $"{user.Name} {user.Surname}",
+                Country = "Turkiye",
+                Description = address.Line,
+                ZipCode = address.PostCode
+            };
+
+            var customerModel = new CustomerModel()
+            {
+                City = address.State.City.Name,
+                Country = "Turkiye",
+                Email = user.Email,
+                GsmNumber = user.PhoneNumber,
+                Id = user.Id,
+                IdentityNumber = user.Id,
+                Ip = Request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+                Name = user.Name,
+                Surname = user.Surname,
+                ZipCode = addressModel.ZipCode,
+                LastLoginDate = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
+                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}"
+            };
+
             var paymentModel = new PaymentModel()
             {
                 Installment = model.Installment,
-                Address = new AddressModel(),
-                BasketList = new List<BasketModel>(),
-                Customer = new CustomerModel(),
+                Address = addressModel,
+                BasketList = new List<BasketModel>() { basketModel },
+                Customer = customerModel,
                 CardModel = model.CardModel,
                 Price = model.Amount,
                 UserId = HttpContext.GetUserId(),
