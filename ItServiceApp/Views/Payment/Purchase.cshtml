@@ -19,6 +19,7 @@
         </div>
         <form asp-action="Purchase" method="post">
             <input asp-for="Installment" type="hidden" id="hdInstallment" value="1" />
+            <input  type="hidden" id="Amount" name="Amount" value='@ViewBag.Subs.Price.ToString(new CultureInfo("en-US"))' />
             <div class="row">
                 <div class="col-lg-6">
                     <div class="billing-details">
