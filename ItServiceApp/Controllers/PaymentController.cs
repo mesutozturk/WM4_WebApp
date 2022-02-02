@@ -163,7 +163,8 @@ namespace ItServiceApp.Controllers
                 Surname = user.Surname,
                 ZipCode = addressModel.ZipCode,
                 LastLoginDate = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
-                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}"
+                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}",
+                RegistrationAddress = address.Line
             };
 
             var paymentModel = new PaymentModel()

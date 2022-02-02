@@ -51,50 +51,17 @@ namespace ItServiceApp.Services
                 BasketId = StringHelpers.GenerateUniqueCode(),
                 PaymentChannel = PaymentChannel.WEB.ToString(),
                 PaymentGroup = PaymentGroup.SUBSCRIPTION.ToString(),
-                PaymentCard = _mapper.Map<PaymentCard>(model.CardModel)
+                PaymentCard = _mapper.Map<PaymentCard>(model.CardModel),
+                Buyer = _mapper.Map<Buyer>(model.Customer),
+                BillingAddress = _mapper.Map<Address>(model.Address)
             };
-
-            var user = _userManager.FindByIdAsync(model.UserId).Result;
-
-            var buyer = new Buyer
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                GsmNumber = user.PhoneNumber,
-                Email = user.Email,
-                IdentityNumber = "11111111110",
-                LastLoginDate = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}",
-                RegistrationDate = $"{user.CreatedDate:yyyy-MM-dd HH:mm:ss}",
-                RegistrationAddress = "Cihannuma Mah. Barbaros Bulvarı No:9 Beşiktaş",
-                Ip = model.Ip,
-                City = "Istanbul",
-                Country = "Turkey",
-                ZipCode = "34732"
-            };
-            paymentRequest.Buyer = buyer;
-
-            var billingAddress = new Address
-            {
-                ContactName = $"{user.Name} {user.Surname}",
-                City = "Istanbul",
-                Country = "Turkey",
-                Description = "Cihannuma Mah. Barbaros Bulvarı No:9 Beşiktaş",
-                ZipCode = "34742"
-            };
-            paymentRequest.BillingAddress = billingAddress;
 
             var basketItems = new List<BasketItem>();
-            var firstBasketItem = new BasketItem
+
+            foreach (var basketModel in model.BasketList)
             {
-                Id = "BI101",
-                Name = "Binocular",
-                Category1 = "Collectibles",
-                Category2 = "Accessories",
-                ItemType = BasketItemType.VIRTUAL.ToString(),
-                Price = model.Price.ToString(new CultureInfo("en-US"))
-            };
-            basketItems.Add(firstBasketItem);
+                basketItems.Add(_mapper.Map<BasketItem>(basketModel));
+            }
             paymentRequest.BasketItems = basketItems;
 
             return paymentRequest;
