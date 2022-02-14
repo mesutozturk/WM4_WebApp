@@ -1,6 +1,7 @@
-﻿using ItServiceApp.InjectOrnek;
-using ItServiceApp.MapperProfiles;
-using ItServiceApp.Services;
+﻿using ItServiceApp.Business.MapperProfiles;
+using ItServiceApp.Business.Services.Email;
+using ItServiceApp.Business.Services.Payment;
+using ItServiceApp.InjectOrnek;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

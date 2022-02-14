@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ItServiceApp.Migrations
+namespace ItServiceApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
     [Migration("20220112084210_Eticaret1")]

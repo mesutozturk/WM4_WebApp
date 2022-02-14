@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using ItServiceApp.Business.Services.Payment;
+using ItServiceApp.Core.Identity;
+using ItServiceApp.Core.Payment;
+using ItServiceApp.Core.ViewModels;
 using ItServiceApp.Data;
 using ItServiceApp.Extensions;
-using ItServiceApp.Models.Identity;
-using ItServiceApp.Models.Payment;
-using ItServiceApp.Services;
 using ItServiceApp.ViewModels;
 using Iyzipay.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ItServiceApp.Controllers
 {

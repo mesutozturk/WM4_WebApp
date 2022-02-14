@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
+using ItServiceApp.Core.ViewModels;
 using ItServiceApp.Data;
-using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ItServiceApp.Components
 {

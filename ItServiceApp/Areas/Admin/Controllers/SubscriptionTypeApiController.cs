@@ -1,13 +1,14 @@
 ﻿using DevExtreme.AspNet.Data;
 using ItServiceApp.Data;
 using ItServiceApp.Extensions;
-using ItServiceApp.Models.Entities;
 using ItServiceApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using ItServiceApp.Core.Entities;
+using ItServiceApp.Core.ViewModels;
 
 namespace ItServiceApp.Areas.Admin.Controllers
 {

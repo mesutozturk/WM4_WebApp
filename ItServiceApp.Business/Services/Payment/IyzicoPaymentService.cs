@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using AutoMapper;
 using ItServiceApp.Core.Identity;
 using ItServiceApp.Core.Payment;
 using Iyzipay.Model;
@@ -6,9 +9,6 @@ using Iyzipay.Request;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using MUsefulMethods;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace ItServiceApp.Business.Services.Payment
 {
@@ -97,7 +97,7 @@ namespace ItServiceApp.Business.Services.Payment
         public PaymentResponseModel Pay(PaymentModel model)
         {
             var request = this.InitialPaymentRequest(model);
-            var payment = Payment.Create(request, _options);
+            var payment = Iyzipay.Model.Payment.Create(request, _options);
             return _mapper.Map<PaymentResponseModel>(payment);
         }
     }
