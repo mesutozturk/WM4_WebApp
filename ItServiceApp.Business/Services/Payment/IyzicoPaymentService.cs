@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ItServiceApp.Models.Identity;
-using ItServiceApp.Models.Payment;
+using ItServiceApp.Core.Identity;
+using ItServiceApp.Core.Payment;
 using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ItServiceApp.Services
+namespace ItServiceApp.Business.Services.Payment
 {
     public class IyzicoPaymentService : IPaymentService
     {

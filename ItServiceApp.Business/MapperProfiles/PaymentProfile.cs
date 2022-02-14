@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ItServiceApp.Models.Payment;
+using ItServiceApp.Core.Payment;
 using Iyzipay.Model;
 
-namespace ItServiceApp.MapperProfiles
+namespace ItServiceApp.Business.MapperProfiles
 {
     public class PaymentProfile : Profile
     {

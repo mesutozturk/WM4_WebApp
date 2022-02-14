@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ItServiceApp.Core.ComplexTypes;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using ItServiceApp.Models;
-using Microsoft.Extensions.Configuration;
 
-namespace ItServiceApp.Services
+namespace ItServiceApp.Business.Services.Email
 {
     public class EmailSender:IEmailSender
     {

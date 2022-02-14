@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ItServiceApp.Models.Identity;
-using ItServiceApp.ViewModels;
+using ItServiceApp.Core.Identity;
+using ItServiceApp.Core.ViewModels;
 
-namespace ItServiceApp.MapperProfiles
+namespace ItServiceApp.Business.MapperProfiles
 {
     public class AccountProfile : Profile
     {

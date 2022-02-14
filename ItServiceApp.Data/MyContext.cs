@@ -1,5 +1,5 @@
-﻿using ItServiceApp.Models.Entities;
-using ItServiceApp.Models.Identity;
+﻿using ItServiceApp.Core.Entities;
+using ItServiceApp.Core.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
