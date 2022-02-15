@@ -61,6 +61,7 @@ namespace ItServiceApp
             });
 
             services.AddApplicationServices(this.Configuration);
+            services.AddAppRepositories();
 
             services.AddControllersWithViews()
             .AddNewtonsoftJson(
