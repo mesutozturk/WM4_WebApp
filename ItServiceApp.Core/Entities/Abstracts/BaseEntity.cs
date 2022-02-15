@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ItServiceApp.Core.Entities
+namespace ItServiceApp.Core.Entities.Abstracts
 {
-    public class BaseEntity
+    public abstract class BaseEntity<TKey> : IEntity<TKey>
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public TKey Id { get; set; }
         public DateTime CreatedDate { get; set; }
         [StringLength(128)]
         public string CreatedUser { get; set; }

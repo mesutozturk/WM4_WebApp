@@ -11,8 +11,7 @@ namespace ItServiceApp.Core.Entities
         public string Name { get; set; }
         public int CityId { get; set; }
 
-        [ForeignKey("CityId")]
+        [ForeignKey(nameof(CityId))]
         public virtual City City { get; set; }
-
     }
 }

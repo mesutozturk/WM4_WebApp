@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ItServiceApp.Core.Entities.Abstracts;
+using ItServiceApp.Core.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ItServiceApp.Core.Identity;
 
 namespace ItServiceApp.Core.Entities
 {
-    public class Subscription : BaseEntity
+    public class Subscription : BaseEntity<Guid>
     {
         public Guid SubscriptionTypeId { get; set; }
         public decimal Amount { get; set; }

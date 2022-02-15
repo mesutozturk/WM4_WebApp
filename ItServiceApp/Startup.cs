@@ -48,7 +48,7 @@ namespace ItServiceApp
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-                
+
             }).AddEntityFrameworkStores<MyContext>().AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
