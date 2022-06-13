@@ -36,7 +36,7 @@ namespace ItServiceApp.Controllers
             _roleManager = roleManager;
             _emailSender = emailSender;
             _mapper = mapper;
-            CheckRoles();
+            //CheckRoles();
         }
 
         private void CheckRoles()
